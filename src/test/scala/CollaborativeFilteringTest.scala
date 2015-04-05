@@ -1,16 +1,13 @@
-package spark
+
 
 import org.apache.spark.SparkContext
 import org.apache.spark.SparkContext._
-import org.apache.spark.SparkConf
 import org.apache.spark.mllib.recommendation.ALS
-import org.apache.spark.mllib.recommendation.MatrixFactorizationModel
 import org.apache.spark.mllib.recommendation.Rating
 import org.junit.Test
 import org.junit.Assert
-import org.junit.Before
 
-class ALSTest {
+class CollaborativeFilteringTest {
 
   def testWithCleanSlate(body: SparkContext => Unit) = {
     System.clearProperty("spark.driver.port")
@@ -34,7 +31,7 @@ class ALSTest {
       val lambda = 0.01
       val blocks = 1
       val seed = 123456789
-      val model = ALS.train(ratings, 1, 20, 0.01, 1, 123456789)
+      val model = ALS.train(ratings, 1, 20, 0.01, -1, 123456789)
       Assert.assertEquals(4.953176333258341, model.predict(3, 2), 0.00000001)
     }
   }

@@ -1,14 +1,14 @@
-package spark
+
 
 import org.apache.spark.SparkContext
 import org.apache.spark.SparkContext._
 import org.apache.spark.SparkConf
-
 import org.apache.spark.mllib.recommendation.ALS
-import org.apache.spark.mllib.recommendation.MatrixFactorizationModel
 import org.apache.spark.mllib.recommendation.Rating
+import org.apache.spark.rdd.RDD.doubleRDDToDoubleRDDFunctions
+import org.apache.spark.rdd.RDD.rddToPairRDDFunctions
 
-// run with bin\spark-submit --class spark.Recommendation path/to/target/jar
+// run with bin\spark-submit --class Recommendation path/to/target/jar
 object Recommendation {
   def main(args: Array[String]) {
     val conf = new SparkConf().setAppName("ALS example")
