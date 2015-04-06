@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items termsofuse="http://boardgamegeek.com/xmlapi/termsofuse">
+	<item type="boardgame" id="1234567">
+		<name type="alterate" sortindex="5" value="Die Lacher" />
+
+		<comments page="1" totalitems="4188">
+			<comment username="Peter McCarthy" rating="9.99" value="" />
+		</comments>
+	</item>
+</items>

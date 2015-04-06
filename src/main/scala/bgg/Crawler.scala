@@ -1,14 +1,19 @@
 package bgg
 
+import java.io.File
 import org.apache.spark.SparkContext
 import org.apache.spark.SparkContext._
 import org.apache.spark.SparkConf
 import scalaj.http.Http
-import java.io.File
+
+case class Item(id: Int, itemType: String, name: String)
+case class ItemRating(userName: String, itemId: Int, rating: Double)
 
 // use scalaj-http in spark-shell: --packages org.scalaj:scalaj-http_2.10:1.1.4
 object Crawler {
-  val basePath = "C:/Users/bear/Downloads/bgg"
+  val BASE_PATH = "C:/Users/bear/Downloads/bgg"
+  val MAX_THING_ID = 2
+
   val timestamp = System.currentTimeMillis
 
   def main(args: Array[String]) {
@@ -16,20 +21,37 @@ object Crawler {
     val conf = new SparkConf().setAppName("BGG crawler").setMaster("local")
     val sc = new SparkContext(conf)
 
-    val ids = sc.parallelize(1 to 10)
-    val things = ids.map(id => (id, download(id, 1).replaceAll("\\n", ""))) // not good
+    val thingIds = sc.parallelize(1 to MAX_THING_ID)
+    val things = thingIds.map(id => (id, download(id, 1)))
 
-    new File(s"$basePath/$timestamp/xml").mkdirs()
-    things.foreach { case (id, xml) => writeFile(s"$basePath/$timestamp/xml/$id.xml", xml) }
-    things.map { case (id, xml) => xml }.saveAsTextFile(s"$basePath/$timestamp/rdd") // saves tuple as string // and assumes one entry per line
+    //    val items = things.flatMap { case (id, xml) => parseXml(xml) }
+
+    new File(s"$BASE_PATH/$timestamp/xml").mkdirs()
+    things.foreach { case (id, xml) => writeFile(s"$BASE_PATH/$timestamp/xml/$id.xml", xml) }
+    things.map { case (id, xml) => xml }.saveAsTextFile(s"$BASE_PATH/$timestamp/rdd") // saves tuple as string // and assumes one entry per line
   }
 
   def download(id: Int, page: Int): String = Http("http://boardgamegeek.com/xmlapi2/thing")
     .param("id", Integer.toString(id))
     .param("ratingcomments", "1")
+    .param("stats", "1")
     .param("pagesize", "100")
-    .param("page", "1")
+    .param("page", Integer.toString(page))
     .asString.body
+
+  def parseItemXml(xml: String): (Item, Seq[ItemRating]) = {
+    val xmlElem = scala.xml.XML.loadString(xml)
+    val itemId = (xmlElem \ "item" \ "@id").toString.toInt
+    val itemType = (xmlElem \ "item" \ "@type").toString
+    val itemName = (xmlElem \ "item" \ "name" \ "@value").toString
+    val commentsNode = (xmlElem \ "item" \ "comments" \ "comment")
+    val itemRatings = commentsNode.map { commentNode => 
+      val userName = (commentNode \ "@username").toString
+      val rating = (commentNode \ "@rating").toString.toDouble
+      ItemRating(userName, itemId, rating)
+    }
+    (Item(itemId, itemType, itemName), itemRatings)
+  }
 
   def writeFile(fileName: String, content: String) = scala.tools.nsc.io.File(fileName).writeAll(content)
 }

@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="utf-8"?><items termsofuse="http://boardgamegeek.com/xmlapi/termsofuse"><item type="boardgame" id="1">
+         <thumbnail>//cf.geekdo-images.com/images/pic159509_t.jpg</thumbnail>
+      <image>//cf.geekdo-images.com/images/pic159509.jpg</image>
+                                     				
+				<name type="primary" sortindex="5" value="Die Macher" />
+			
+						                           
+						               													<description>Die Macher is a game about seven sequential political races in different regions of Germany. Players are in charge of national political parties, and must manage limited resources to help their party to victory. The winning party will have the most victory points after all the regional elections. There are four different ways of scoring victory points. First, each regional election can supply one to eighty victory points, depending on the size of the region and how well your party does in it. Second, if a party wins a regional election and has some media influence in the region, then the party will receive some media-control victory points. Third, each party has a national party membership which will grow as the game progresses and this will supply a fair number of victory points. Lastly, parties score some victory points if their party platform matches the national opinions at the end of the game.&amp;#10;&amp;#10;The 1986 edition featured 4 parties from the old West Germany and supported 3-4 players. The 1997 edition supports up to 5 players in the re-united Germany and updated several features of the rules as well.  The 2006 edition also supports up to 5 players and adds a shorter 5 round variant and additional rules updates by the original designer.&amp;#10;&amp;#10;Die Macher is #1 in the Valley Games Classic Line&amp;#10;&amp;#10;</description>
+										      	               				<yearpublished value="1986" />
+						               				<minplayers value="3" />
+						               				<maxplayers value="5" />
+						      			<poll name="suggested_numplayers" title="User Suggested Number of Players" totalvotes="116">
+			
+		<results numplayers="1">		
+					<result value="Best" numvotes="0" />
+					<result value="Recommended" numvotes="1" />
+					<result value="Not Recommended" numvotes="72" />
+				</results>					
+			
+		<results numplayers="2">		
+					<result value="Best" numvotes="0" />
+					<result value="Recommended" numvotes="1" />
+					<result value="Not Recommended" numvotes="72" />
+				</results>					
+			
+		<results numplayers="3">		
+					<result value="Best" numvotes="0" />
+					<result value="Recommended" numvotes="24" />
+					<result value="Not Recommended" numvotes="64" />
+				</results>					
+			
+		<results numplayers="4">		
+					<result value="Best" numvotes="22" />
+					<result value="Recommended" numvotes="75" />
+					<result value="Not Recommended" numvotes="10" />
+				</results>					
+			
+		<results numplayers="5">		
+					<result value="Best" numvotes="100" />
+					<result value="Recommended" numvotes="10" />
+					<result value="Not Recommended" numvotes="2" />
+				</results>					
+			
+		<results numplayers="5+">		
+					<result value="Best" numvotes="1" />
+					<result value="Recommended" numvotes="0" />
+					<result value="Not Recommended" numvotes="51" />
+				</results>					
+	</poll> 
+			               				<playingtime value="240" />
+						               				<minplaytime value="240" />
+						               				<maxplaytime value="240" />
+						               				<minage value="14" />
+						      			<poll name="suggested_playerage" title="User Suggested Player Age" totalvotes="25">
+			<results>		
+					<result value="2" numvotes="0" />
+					<result value="3" numvotes="0" />
+					<result value="4" numvotes="0" />
+					<result value="5" numvotes="0" />
+					<result value="6" numvotes="0" />
+					<result value="8" numvotes="0" />
+					<result value="10" numvotes="0" />
+					<result value="12" numvotes="5" />
+					<result value="14" numvotes="13" />
+					<result value="16" numvotes="4" />
+					<result value="18" numvotes="2" />
+					<result value="21 and up" numvotes="1" />
+				</results>					
+	</poll> 
+			      			<poll name="language_dependence" title="Language Dependence" totalvotes="46">
+			
+		<results>		
+					<result level="1" value="No necessary in-game text" numvotes="35" />
+					<result level="2" value="Some necessary text - easily memorized or small crib sheet" numvotes="5" />
+					<result level="3" value="Moderate in-game text - needs crib sheet or paste ups" numvotes="6" />
+					<result level="4" value="Extensive use of text - massive conversion needed to be playable" numvotes="0" />
+					<result level="5" value="Unplayable in another language" numvotes="0" />
+				</results>					
+	</poll> 
+			      			 
+			      				
+		 			
+
+			
+		
+					<link type="boardgamecategory" id="1021" value="Economic" />
+		
+									
+				
+		 			
+
+			
+		
+					<link type="boardgamecategory" id="1026" value="Negotiation" />
+		
+									
+				
+		 			
+
+			
+		
+					<link type="boardgamecategory" id="1001" value="Political" />
+		
+									
+			
+
+			      				
+		 			
+
+			
+		
+					<link type="boardgamemechanic" id="2080" value="Area Control / Area Influence" />
+		
+									
+				
+		 			
+
+			
+		
+					<link type="boardgamemechanic" id="2012" value="Auction/Bidding" />
+		
+									
+				
+		 			
+
+			
+		
+					<link type="boardgamemechanic" id="2072" value="Dice Rolling" />
+		
+									
+				
+		 			
+
+			
+		
+					<link type="boardgamemechanic" id="2040" value="Hand Management" />
+		
+									
+				
+		 			
+
+			
+		
+					<link type="boardgamemechanic" id="2020" value="Simultaneous Action Selection" />
+		
+									
+			
+
+			      				
+		 			
+
+			
+		
+					<link type="boardgamefamily" id="10643" value="Country: Germany" />
+		
+									
+				
+		 			
+
+			
+		
+					<link type="boardgamefamily" id="91" value="Valley Games Classic Line" />
+		
+									
+			
+
+			      			
+
+			      			
+
+			      			
+
+			      			
+
+			      			
+
+			      			
+
+			      			
+
+			      	      	      				
+		 			
+
+			
+		
+					<link type="boardgamedesigner" id="1" value="Karl-Heinz Schmiel" />
+		
+									
+			
+
+			      				
+		 			
+
+			
+		
+					<link type="boardgameartist" id="12517" value="Marcus Gschwendtner" />
+		
+									
+			
+
+			      	      				
+		 			
+
+			
+		
+					<link type="boardgamepublisher" id="133" value="Hans im Glück Verlags-GmbH" />
+		
+									
+				
+		 			
+
+			
+		
+					<link type="boardgamepublisher" id="2" value="Moskito Spiele" />
+		
+									
+				
+		 			
+
+			
+		
+					<link type="boardgamepublisher" id="5382" value="Valley Games, Inc." />
+		
+									
+			
+
+			
+	
+
+	
+
+	
+		<comments page="1" totalitems="4188">
+					<comment username="jackcres" rating="10" value="" />
+									<comment username="FuManchu" rating="10" value="Play this game.  Play this game a lot." />
+									<comment username="HankM" rating="10" value="hard to find enough players" />
+									<comment username="Akke" rating="10" value="Not as complex as it seems, one of the few German games in which you can really plan ahead." />
+									<comment username="jonnypolite" rating="10" value="" />
+									<comment username="pwotruba" rating="10" value="the older Moskito version is for 4 players only, the newer HiG version is for 3-5.  Great political game, more 
+balanced with the newer version.  Need to do well in 1st or 2nd regional election." />
+									<comment username="Peter McCarthy" rating="10" value="" />
+									<comment username="jstahl" rating="10" value="Sid Sackson Personal Collection
+1986 Edition" />
+									<comment username="hemulen" rating="10" value="" />
+									<comment username="Mike Mayer" rating="10" value="Words fail me." />
+									<comment username="Jcarper" rating="10" value="Excellent game! Not as complex as it seems. The new version is slick.  After the 1st couple of rounds, the system become clear." />
+									<comment username="MHenry" rating="10" value="" />
+									<comment username="joepau" rating="10" value="Met Karl-Heinz in Essen (2003) very modest man who made a near perfect game." />
+									<comment username="tryytty" rating="10" value="One of the best board games ever. Very elegant collection of mechanics and I really like the theme after all these dragon or reneissance Italy themes." />
+									<comment username="m_r_tyler" rating="10" value="With so many phases each round, there is a lot to keep track of.  Fortunately, I downloaded the player aids and read up on all the corrections to the English translation.  The four or five hours in our initial game seemed to fly by in no time.  This is one German game that most closely resembles a Francis Tresham game." />
+									<comment username="cholson" rating="10" value="" />
+									<comment username="martin" rating="10" value="" />
+									<comment username="zremagem" rating="10" value="" />
+									<comment username="Gotal" rating="10" value="THE greatest of all. This game have all it takes." />
+									<comment username="JasonMatthews" rating="10" value="The best political game, period." />
+									<comment username="Bernard" rating="10" value="" />
+									<comment username="thomasdean007" rating="10" value="It&#039;s so good, I&#039;m shocked there haven&#039;t been imitators. Perfect example of theme informing design. " />
+									<comment username="ntrolls" rating="10" value="Brilliant game, that&#039;s all I can say." />
+									<comment username="ueli blum" rating="10" value="" />
+									<comment username="figge" rating="10" value="" />
+									<comment username="Deleted User 1" rating="10" value="Simply a superb game.  Long, but incredibly engrossing.  The Poll Cards are a small blemish on an otherwise almost flawless design." />
+									<comment username="Warhammer" rating="10" value="Definitely a gamer&#039;s game.  I think with more plays, and the right group this should move to a 10.
+
+EDIT: Upgraded to 10, best game I have played." />
+									<comment username="julirang" rating="10" value="" />
+									<comment username="sisteray" rating="10" value="Wow" />
+									<comment username="ihrigmd" rating="10" value="" />
+									<comment username="Atalanta" rating="10" value="I&#039;ve played this game numerous times and it still retains its replayability.  This game never plays the same way twice, the elements of negotiation and strategy make this a classic game.  Its a good length (4-5 hours) that encourages socialization (even if its simply in the manner of, hey, you just screwed me over!)  If you&#039;ve never played it, grab 4 of your closest gamer friends, several six-packs of german beer (or a couple bottles of wine) and expect a really good evening." />
+									<comment username="martang" rating="10" value="" />
+									<comment username="sebert" rating="10" value="1st edition" />
+									<comment username="SeaBass" rating="10" value="" />
+									<comment username="robmderrick" rating="10" value="" />
+									<comment username="chris_arsenal" rating="10" value="Wonderful, deep, fine - kind of like good Barolo, this one is better with age. Perfect blend of old-school depth/length with new-school elegant interlocking mechanics. And the theme is cool, too. REALLY glad I made the investment. Based on 2 plays, both solitaire - says alot about a game, eh?" />
+									<comment username="Richard_Huzzey" rating="10" value="Truly this game is great.
+
+A fantastic design-- if only there was enough time to play it more often." />
+									<comment username="Danisme" rating="10" value="THE game, I always wanted. It has one of the most complicated mechanisms, at least among euros. Still it works! and works beautifully. It&#039;s like Republic of Rome in some sense. It has the same depth, tension and level of player interaction. Yet it&#039;s much more controllable and avoids unpredictable luck. Sophisticated, elegant and deep." />
+									<comment username="Blackpope" rating="10" value="This is the game, my personal n.1. Many strategic and tactical decisions to be made. It needs planning, dealing and also skill in taking opportunities when they present. The theme may seems dry, but once you play you&#039;re grabbed and the 4 hours a match usually last fly away. 
+Reccomended. 
+Ownership and use is necessary for every true geek. " />
+									<comment username="puffinge" rating="10" value="" />
+									<comment username="argyle" rating="10" value="" />
+									<comment username="kirklim" rating="10" value="YSD" />
+									<comment username="lumberslug2" rating="10" value="This is &quot;THE GAME&quot; If the topic of this game was anything other than German politics it would be the #1 rated game on the list. The game takes 4 hours, yes... but it will be the best 4 hours you ever spent playing a game. Just one point, if you don&#039;t like games that have a lot of options, lots of player interaction, a great &quot;screw you&quot; factor, takes longer than 45 minuets, or requires you to use your brain and keep your head in the game, please don&#039;t play this game. " />
+									<comment username="tmdba37" rating="10" value="What other rating could Die Macher have really? Especially taking into account my love for longer, meatier games. . .this is definitely one of the all time bests. The thing about Die Macher for me is the constant balance between management of the future regions and the current scoring region. . .being able to pick and choose where you need to strike and ultimately making your move in the end game. . .something I have yet to master but hope to have the time to do so with many more plays. . .great game!" />
+									<comment username="nschaan" rating="10" value="" />
+									<comment username="jaredh" rating="10" value="The first game in a very very long time that I got excited about days in advance before getting to play it again.  Outstanding.  Can&#039;t say enough about this one.  #3 or 4 all-time for me.  Probably will grow to a 10 long-term...
+
+Edit - It&#039;s grown.  3rd best game I have ever played.  Upgrade to 10 where it belongs." />
+									<comment username="Gregol" rating="10" value="Hands down the best German game I have ever played.  So many things going on, unlimited strategy: just brilliant.  Perfect mix of luck and calculation, a real nail bitter.  Cooperation, resource management, biding, back stabbing, this game has it all. Fantastic game!" />
+									<comment username="eddyd" rating="10" value="" />
+									<comment username="SigsPerry" rating="10" value="" />
+									<comment username="whlheart" rating="10" value="" />
+									<comment username="Karlsen" rating="10" value="There&#039;s nothing actually particularly complex about this game, but there is a lot going on.  Seven separate elections that you can influence, party membership, the national opinions, your party platform.  Five player game with four newbies took us a little under five hours with a dinner break, so I could see it getting under four.  I could play this a lot." />
+									<comment username="eranel" rating="10" value="" />
+									<comment username="cwolf" rating="10" value="" />
+									<comment username="RichB21" rating="10" value="I was finally able to get in a game of Die Macher at a con this past weekend and everyone&#039;s comments about the game proved to be true.  Incredible number of options; you&#039;re always paying attention to what&#039;s going on; plays in four hours, but seems like one-and-a-half.  Tremendous!!" />
+									<comment username="cwmassey" rating="10" value="A four hour game that never feels like four hours - truly a great game.  I really think that if you played this more than once a year, that you could trim the time a little bit as well.  " />
+									<comment username="John Weber" rating="10" value="This is simply my favorite game of all time.  It has many different mechanisms (auctions, turn order, placements, multiple options, resource management) and is a very intense four hour experience that is also an excellent simulation of electoral politics as well as the best game of all time.  I own the 1997 edition from RGG, which improved on the very poor components and sometimes fiddly math from the first edition game, which I started playing around 1990 although I never owned a copy.  Only problem is the steep learning curve, substantially longer playing time (not an issue with me but it is for many people) and finding the right group to play it with.  Definitely better with 5 than 4, and I usually pre-arrange most game sessions in advance although I have had fun in some pick-up games recently." />
+									<comment username="kreten" rating="10" value="" />
+									<comment username="smok" rating="10" value="" />
+									<comment username="Ferendra" rating="10" value="" />
+									<comment username="Thrakkorzog" rating="10" value="" />
+									<comment username="Vic Thiessen" rating="10" value="" />
+									<comment username="jumalautapelaaja" rating="10" value="" />
+									<comment username="molitor4" rating="10" value="Amazing.   Well worth getting a group to play.  Very much a brain burner but nothing too complicated.
+
+*************
+
+Playing my recent games with Tom Rosen and crew prove that 5 player can be played in 3-3.5 hours." />
+									<comment username="danjennings" rating="10" value="" />
+									<comment username="Dohboy" rating="10" value="" />
+									<comment username="basilica" rating="10" value="Can&#039;t play this game enough. :)" />
+									<comment username="Reverend Pete" rating="10" value="I like it a lot!  You have to commit some serious time to playing this one...Yet, if you have the time and committment from your friends--it is TOTALLY worth it." />
+									<comment username="AbeLincoln" rating="10" value="" />
+									<comment username="Patrick Willer" rating="10" value="" />
+									<comment username="Oramon" rating="10" value="" />
+									<comment username="locusshifter" rating="10" value="One of the most mind-numbingly brain-burning games I have ever experienced, and OH WHAT AN EXPERIENCE! A fantastic blend of hand management, majorites, and negotiation. You owe it to yourself to try this game if you get the opportunity." />
+									<comment username="larsk7" rating="10" value="All games must bow to this, the one true master!" />
+									<comment username="lswaage" rating="10" value="2004 Impressions are good after first 4-player game.  It&#039;s highly strategic; planning ahead and cooperation (coalitions) is vital.  Rating might increase with play.  We played a couple of rules wrong, and I believe it&#039;s even better with five players.
+
+8/2008 Finally managed to play a complete 5-player game within acceptable time.  (Having (at least) one player knowing the game well really helps.)  All players start the game on an equal field with all the same possibilities and &quot;enough&quot; resources.  Winning is just a matter of good planning and knowing which fights to stand and which to ignore.  This is a treasure chest in boardgaming and there&#039;s still a lot of depth to be discovered.  Rating up 9 -&gt; 10.
+
+
+Bought 3/2003" />
+									<comment username="TR0GD0R" rating="10" value="" />
+									<comment username="aSoso" rating="10" value="Works flawlesly, not for everyone although.
+One play every 3 months at most, but always a very welcome game." />
+									<comment username="Fromme" rating="10" value="Americans seem to be more interested in German politics than we are ourselves as judged from the time it took me to find players willing to try this one with me. But now I did and I agree to the other 10`s: This the THE game. Being German I might be biased, but it just is so much fun to let the Greens support genetic engineering, hehehe." />
+									<comment username="TrimChris" rating="10" value="I&#039;d play more if the game was longer." />
+									<comment username="Basilius" rating="10" value="" />
+									<comment username="roccoljy" rating="10" value="" />
+									<comment username="Hubajube" rating="10" value="" />
+									<comment username="casterman" rating="10" value="4/18/06 - (Hans im Glück) - played this once and had to have a copy. Karl-Heinz Schmiel you are a game designer genius!" />
+									<comment username="Richelieu" rating="10" value="" />
+									<comment username="cgrice1" rating="10" value="Brilliant game.  So many fascinating, interlocking mechanisms all running simultaniously.  Very long, but worth every minute." />
+									<comment username="Zambogirl" rating="10" value="The length of the game would preclude me from playing this often, but I thought it was FANTASTIC!" />
+									<comment username="gamefool" rating="10" value="" />
+									<comment username="glenartrock" rating="10" value="Best Longer game ever! (4 hours). The time flys, all the mechanics are clever and interesting and engaging. The playing time makes it a hard sell to hit the table a lot, but when it does it&#039;s among the best ganing expiriences." />
+									<comment username="RussRusnak" rating="10" value="The first time I played, I spent 2 hours miserably asking why did I agree to fill this out. (I can understand how the learning curve could turn some off.) Then everything clicked and I realized just how great this game was.There are allot of mechanics, none overly complicated. You want to play this with 5 people who want to play, 1 or 2 who have had their arms twisted can easily ruin it for all. " />
+									<comment username="Elf__Man" rating="10" value="Hands down, my Favorite game.  Has a two turn learning curve.  The first two games I played I lost horribly.  Went out and purchased immeadiately after 2nd game.
+
+I have played this so often, that I cannot even remeber the last time I used an original scorecard.  There are some differences between second and third editions.  My ranking is based upon second edition rules." />
+									<comment username="BarbJebez" rating="10" value="Outstanding. I don&#039;t know how else to describe this game. There are never enough resources to do everything you&#039;d like (or even need) to do well in every stage of the game and it&#039;s these agonizing decisions that everyone needs to make that keep the game a toss up until the very end." />
+									<comment username="pwn3d" rating="10" value="Time flys when I play this, so it must be very good." />
+									<comment username="projectorpen" rating="10" value="" />
+									<comment username="fragyou" rating="10" value="" />
+									<comment username="zobelvila" rating="10" value="" />
+									<comment username="Chrisrob" rating="10" value="I have now played this game a number of times.  A very interesting system.  It is very &quot;full&quot; (lots of tasks) to it takes someone with a wargamer background to be able to last.  But every action by another player effects your own issues so is it like you are participating in another&#039;s turn.
+
+Often when I have played this game two if not three of the players were new to the game; though some had tried to learn the rules in advance.  The first game I played took six hours as well as the second game; the third took seven hours.  In a forced game I could see going five hours but it is far nicer to pace one&#039;s self and just say it will take six (it has taken this long even with all players having played before).
+
+It seems that the actual playing time can be faster, but when rules &amp; setup time are added, this is a long game.
+
+It is not super complicated as much as there are many steps in every turn making the process take time.  Those new to the game get the grasp of it enough to make their decisions after one or two rounds (of six); though in every case they would have wanted to try things diffently if played again.  THIS GAME IS MUCH BETTER WITH THE HELP SHEETS THAT CAN BE FOUND HERE AT BGG; they keep track of all the steps.  I do think it takes playing once or twice in order to get the management of money &amp; resources down so that a stratagy could be followed better during playing.
+
+It is a most interesting way to set up an election game, still making me think the same format could be used to represent the primary process in American presidential elections.
+
+I also have a copy of the original &quot;blue box&quot; edition which has only four parties and seems a little different in its structure. (I have never played this version.)
+
+I also have the newer Valley Games printing but find the shorter five turn version ruins the game." />
+									<comment username="whatdasnell" rating="10" value="" />
+									<comment username="Thommy8" rating="10" value="Reprint just arrived from Valley Games, and I&#039;m really looking forward to trying this one out.  Then I can finally decide whether Ra or Die Macher should win the constant struggle between them, heh -- UPDATE: Wow!  This game has everything.  It seems far more daunting than it should because of the number of phases on each turn, but most of the phases are pretty straightforward, and everything ties together so nicely that the time really flies by.  I&#039;m normally not a fan of games with too much luck or chaos, but this one gives you just enough control to make it work. I can&#039;t get enough!
+
+Purchased: March 21, 2006" />
+									<comment username="Christine Biancheria" rating="10" value="Superb.  It&#039;s long, but it&#039;s tense and exciting." />
+									<comment username="jmilum" rating="10" value="offervalue:9" />
+									<comment username="Terminus_Est" rating="10" value="Doesn&#039;t make it to the table anymore, so I resort to opening the box and fondly recalling the times I&#039;ve played it. If there&#039;s ever a Die Macher group that convenes in the area, I want to be part of it. One of the great gaming experiences." />
+									<comment username="Sailsa" rating="10" value="A true classic.  My favorite game with 5.
+
+Bought September 9, 2006" />
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																														</comments>
+	
+	
+   
+	
+          
+</item>
+</items>
