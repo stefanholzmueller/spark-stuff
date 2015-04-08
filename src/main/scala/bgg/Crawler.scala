@@ -23,12 +23,12 @@ object Crawler {
 
     val thingIds = sc.parallelize(1 to MAX_THING_ID)
     val things = thingIds.map(id => (id, download(id, 1)))
-
-    //    val items = things.flatMap { case (id, xml) => parseXml(xml) }
-
+    things.saveAsSequenceFile(s"$BASE_PATH/$timestamp/seq")
+    // load again: sc.sequenceFile("C:\\Users\\bear\\Downloads\\bgg\\1428504720279\\seq", classOf[IntWritable], classOf[Text])
     new File(s"$BASE_PATH/$timestamp/xml").mkdirs()
     things.foreach { case (id, xml) => writeFile(s"$BASE_PATH/$timestamp/xml/$id.xml", xml) }
-    things.map { case (id, xml) => xml }.saveAsTextFile(s"$BASE_PATH/$timestamp/rdd") // saves tuple as string // and assumes one entry per line
+
+    //    val items = things.flatMap { case (id, xml) => parseXml(xml) }
   }
 
   def download(id: Int, page: Int): String = Http("http://boardgamegeek.com/xmlapi2/thing")
@@ -44,8 +44,7 @@ object Crawler {
     val itemId = (xmlElem \ "item" \ "@id").toString.toInt
     val itemType = (xmlElem \ "item" \ "@type").toString
     val itemName = (xmlElem \ "item" \ "name" \ "@value").toString
-    val commentsNode = (xmlElem \ "item" \ "comments" \ "comment")
-    val itemRatings = commentsNode.map { commentNode => 
+    val itemRatings = (xmlElem \ "item" \ "comments" \ "comment").map { commentNode =>
       val userName = (commentNode \ "@username").toString
       val rating = (commentNode \ "@rating").toString.toDouble
       ItemRating(userName, itemId, rating)
