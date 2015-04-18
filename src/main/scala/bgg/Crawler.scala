@@ -1,43 +1,49 @@
 package bgg
 
-import java.io.File
-import org.apache.spark.SparkContext
-import org.apache.spark.SparkContext._
-import org.apache.spark.SparkConf
 import scalaj.http.Http
+import scalikejdbc._
 
 case class Item(id: Int, itemType: String, name: String)
 case class ItemRating(userName: String, itemId: Int, rating: Double)
 
-// use scalaj-http in spark-shell: --packages org.scalaj:scalaj-http_2.10:1.1.4
 object Crawler {
-  val BASE_PATH = "C:/Users/bear/Downloads/bgg"
-  val MAX_THING_ID = 2
+  val ID_BATCHES = 2
+  val ID_BATCH_SIZE = 100
+  val ID_START = 201
 
-  val timestamp = System.currentTimeMillis
+  Class.forName("com.mysql.jdbc.Driver")
+  ConnectionPool.singleton("jdbc:mysql://localhost:3306/bgg", "root", "root")
+  implicit val session = AutoSession
 
   def main(args: Array[String]) {
-    System.setProperty("hadoop.home.dir", "C:/Users/bear/") // hack because ./bin/winutils.exe needs to exist
-    val conf = new SparkConf().setAppName("BGG crawler").setMaster("local")
-    val sc = new SparkContext(conf)
-
-    val thingIds = sc.parallelize(1 to MAX_THING_ID)
-    val things = thingIds.map(id => (id, download(id, 1)))
-    things.saveAsSequenceFile(s"$BASE_PATH/$timestamp/seq")
-    // load again: sc.sequenceFile("C:\\Users\\bear\\Downloads\\bgg\\1428504720279\\seq", classOf[IntWritable], classOf[Text])
-    new File(s"$BASE_PATH/$timestamp/xml").mkdirs()
-    things.foreach { case (id, xml) => writeFile(s"$BASE_PATH/$timestamp/xml/$id.xml", xml) }
-
-    //    val items = things.flatMap { case (id, xml) => parseXml(xml) }
+    for (batch <- 0 until ID_BATCHES) {
+      val start = batch * ID_BATCH_SIZE + ID_START
+      val thingIds = start until start + ID_BATCH_SIZE
+      download(thingIds, 1)
+    }
   }
 
-  def download(id: Int, page: Int): String = Http("http://boardgamegeek.com/xmlapi2/thing")
-    .param("id", Integer.toString(id))
-    .param("ratingcomments", "1")
-    .param("stats", "1")
-    .param("pagesize", "100")
-    .param("page", Integer.toString(page))
-    .asString.body
+  def download(ids: Seq[Int], page: Int): Unit = {
+    Thread.sleep(500)
+
+    val map: Map[String, String] = Map(
+      "id" -> ids.map { i => Integer.toString(i) }.mkString(","),
+      "ratingcomments" -> "1",
+      "stats" -> "1",
+      "pagesize" -> "100",
+      "page" -> Integer.toString(page))
+    val url = "http://boardgamegeek.com/xmlapi2/thing?" + map.map { case (k, v) => k + "=" + v }.mkString("&")
+    try {
+      val response = Http(url).timeout(connTimeoutMs = 10000, readTimeoutMs = 50000).execute()
+      if (response.code == 200) {
+        sql"insert into raw (url, status, body) values (${url}, ${response.code}, ${response.body})".update.apply()
+      } else {
+        sql"insert into raw (url, status) values (${url}, ${response.code})".update.apply()
+      }
+    } catch {
+      case e: Exception => sql"insert into raw (url, status) values (${url}, ${e.toString})".update.apply()
+    }
+  }
 
   def parseItemXml(xml: String): (Item, Seq[ItemRating]) = {
     val xmlElem = scala.xml.XML.loadString(xml)
