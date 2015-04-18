@@ -3,13 +3,10 @@ package bgg
 import scalaj.http.Http
 import scalikejdbc._
 
-case class Item(id: Int, itemType: String, name: String)
-case class ItemRating(userName: String, itemId: Int, rating: Double)
-
 object Crawler {
-  val ID_BATCHES = 2
+  val ID_BATCHES = 1730
   val ID_BATCH_SIZE = 100
-  val ID_START = 201
+  val ID_START = 401
 
   Class.forName("com.mysql.jdbc.Driver")
   ConnectionPool.singleton("jdbc:mysql://localhost:3306/bgg", "root", "root")
@@ -43,19 +40,6 @@ object Crawler {
     } catch {
       case e: Exception => sql"insert into raw (url, status) values (${url}, ${e.toString})".update.apply()
     }
-  }
-
-  def parseItemXml(xml: String): (Item, Seq[ItemRating]) = {
-    val xmlElem = scala.xml.XML.loadString(xml)
-    val itemId = (xmlElem \ "item" \ "@id").toString.toInt
-    val itemType = (xmlElem \ "item" \ "@type").toString
-    val itemName = (xmlElem \ "item" \ "name" \ "@value").toString
-    val itemRatings = (xmlElem \ "item" \ "comments" \ "comment").map { commentNode =>
-      val userName = (commentNode \ "@username").toString
-      val rating = (commentNode \ "@rating").toString.toDouble
-      ItemRating(userName, itemId, rating)
-    }
-    (Item(itemId, itemType, itemName), itemRatings)
   }
 
   def writeFile(fileName: String, content: String) = scala.tools.nsc.io.File(fileName).writeAll(content)
