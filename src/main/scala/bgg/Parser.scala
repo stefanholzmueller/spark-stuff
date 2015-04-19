@@ -12,6 +12,68 @@ object Parser {
   implicit val session = AutoSession
 
   def main(args: Array[String]) {
+    parseItemRatings
+  }
+
+  def parseItemRatings {
+    sql"""CREATE TABLE IF NOT EXISTS bgg.itemrating (
+  itemratingid INT NOT NULL AUTO_INCREMENT,
+  username VARCHAR(100),
+  userId INT,
+  itemid INT,
+  rating FLOAT,
+  comment TEXT,
+  PRIMARY KEY (itemratingid)
+)
+ENGINE=MyISAM
+DEFAULT CHARSET=utf8
+COLLATE=utf8_general_ci;
+""".execute.apply()
+
+    sql"delete from itemrating".execute.apply()
+
+    val userNameToUserId = scala.collection.mutable.Map[String, Int]()
+    var runningUserId = 0
+
+    val ids = sql"SELECT id FROM raw".map(_.get("id"):Int).list.apply
+    ids.foreach { id =>
+    val xmls = sql"select body from raw where status = '200' AND id = $id".fetchSize(1).foreach { row =>
+      println(s"id=$id  runningUserId=$runningUserId")
+      val xml = row.string("body")
+      val xmlElem = scala.xml.XML.loadString(fixXml(xml))
+      val items = (xmlElem \ "item").filterNot { item =>
+        val itemType = (item \ "@type").text
+        itemType == "thing" /* item 50968 */ || itemType == "videogamehardware" /* item 65196 */
+      }
+      items.foreach { item =>
+        val itemId = (item \ "@id").text.toInt
+        val itemRatings = (item \ "comments" \ "comment").map { commentNode =>
+          val userName = (commentNode \ "@username").text
+          val rating = (commentNode \ "@rating").text.toDouble
+          val comment = (commentNode \ "@value").text
+
+          runningUserId = runningUserId + 1
+          val userId = userNameToUserId.getOrElse(userName, runningUserId)
+          userNameToUserId.put(userName, runningUserId)
+
+          sql"""INSERT INTO itemrating (userName, userId, itemId, rating, comment)
+                VALUES ($userName, $userId, $itemId, $rating, $comment)""".update.apply
+        }
+      }
+    }
+    }
+  }
+
+  def parseItemRatingXml(itemId: Int, xml: String) = {
+    val xmlElem = scala.xml.XML.loadString(xml)
+    val itemRatings = (xmlElem \ "item" \ "comments" \ "comment").map { commentNode =>
+      val userName = (commentNode \ "@username").toString
+      val rating = (commentNode \ "@rating").toString.toDouble
+      ItemRating(userName, itemId, rating)
+    }
+  }
+
+  def parseItems {
     sql"delete from item".execute.apply()
 
     val xmls = sql"select body from raw where status = '200'".foreach { row =>
@@ -26,7 +88,7 @@ object Parser {
 
   def parseItemXml(xml: String): Seq[Item] = {
     try {
-      val xmlElem = scala.xml.XML.loadString(removeNonPrintableCharacters(removeStrangeLeadingDots(xml)))
+      val xmlElem = scala.xml.XML.loadString(fixXml(xml))
       val items = (xmlElem \ "item").filterNot { item =>
         val itemType = (item \ "@type").text
         itemType == "thing" /* item 50968 */ || itemType == "videogamehardware" /* item 65196 */
@@ -47,14 +109,7 @@ object Parser {
     }
   }
 
-  def parseItemRatingXml(itemId: Int, xml: String) = {
-    val xmlElem = scala.xml.XML.loadString(xml)
-    val itemRatings = (xmlElem \ "item" \ "comments" \ "comment").map { commentNode =>
-      val userName = (commentNode \ "@username").toString
-      val rating = (commentNode \ "@rating").toString.toDouble
-      ItemRating(userName, itemId, rating)
-    }
-  }
+  def fixXml(xml: String): String = removeNonPrintableCharacters(removeStrangeLeadingDots(xml))
 
   def removeNonPrintableCharacters(string: String) = string.replaceAll("\\p{C}", "")
 
