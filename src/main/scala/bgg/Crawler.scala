@@ -18,7 +18,7 @@ object Crawler {
 
   def crawlRatings = {
     for ((page, batchOfIds) <- optimizePaging; ids <- batchOfIds) {
-      download(ids, page)
+      download(ids, page, false)
     }
   }
 
@@ -45,17 +45,17 @@ object Crawler {
     for (batch <- 0 until ID_BATCHES) {
       val start = batch * ID_BATCH_SIZE + ID_START
       val thingIds = start until start + ID_BATCH_SIZE
-      download(thingIds, 1)
+      download(thingIds, 1, true)
     }
   }
 
-  def download(ids: Seq[Int], page: Int): Unit = {
+  def download(ids: Seq[Int], page: Int, includeStats: Boolean): Unit = {
     Thread.sleep(500)
 
     val map: Map[String, String] = Map(
       "id" -> ids.map { i => Integer.toString(i) }.mkString(","),
       "ratingcomments" -> "1",
-      "stats" -> "1",
+      "stats" -> (if (includeStats) "1" else "0"),
       "pagesize" -> "100",
       "page" -> Integer.toString(page))
     val url = "http://boardgamegeek.com/xmlapi2/thing?" + map.map { case (k, v) => k + "=" + v }.mkString("&")
