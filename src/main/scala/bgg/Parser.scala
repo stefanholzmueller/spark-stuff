@@ -12,29 +12,39 @@ object Parser {
   implicit val session = AutoSession
 
   def main(args: Array[String]) {
-    val xmls = sql"select body from raw where status = '200'".map(_.string("body")).list.apply()
-    for (xml <- xmls) {
-      val items = parseItemXml(xml)
+    sql"delete from item".execute.apply()
+
+    val xmls = sql"select body from raw where status = '200'".foreach { row =>
+      val items = parseItemXml(row.string("body"))
       items foreach {
         case Item(itemId, itemType, itemName, yearpublished, image, thumbnail, ratingsCount) =>
-          sql"insert into item (itemId, type, name, yearpublished, image, thumbnail, ratingsCount) values (${itemId}, ${itemType}, ${itemName}, ${yearpublished}, ${image}, ${thumbnail}, ${ratingsCount})".update.apply()
+          sql"""insert into item (itemId, type, name, yearpublished, image, thumbnail, ratingsCount) 
+                values (${itemId}, ${itemType}, ${itemName}, ${yearpublished}, ${image}, ${thumbnail}, ${ratingsCount})""".update.apply()
       }
     }
   }
 
   def parseItemXml(xml: String): Seq[Item] = {
-    val xmlElem = scala.xml.XML.loadString(xml)
-    val items = (xmlElem \ "item").map { item =>
-      val itemId = (item \ "@id").text.toInt
-      val itemType = (item \ "@type").text
-      val itemName = ((item \ "name").head \ "@value").text
-      val yearpublished = (item \ "yearpublished" \ "@value").text
-      val image = (item \ "image").text
-      val thumbnail = (item \ "thumbnail").text
-      val ratingsCount = (item \ "comments" \ "@totalitems").text.toInt
-      Item(itemId, itemType, itemName, yearpublished, image, thumbnail, ratingsCount)
+    try {
+      val xmlElem = scala.xml.XML.loadString(removeNonPrintableCharacters(removeStrangeLeadingDots(xml)))
+      val items = (xmlElem \ "item").filterNot { item =>
+        val itemType = (item \ "@type").text
+        itemType == "thing" /* item 50968 */ || itemType == "videogamehardware" /* item 65196 */
+      }.map { item =>
+        val itemId = (item \ "@id").text.toInt
+        val itemType = (item \ "@type").text
+        val itemName = ((item \ "name").head \ "@value").text // just pick the first
+        val yearpublished = (item \ "yearpublished" \ "@value").text
+        val image = (item \ "image").text
+        val thumbnail = (item \ "thumbnail").text
+        val totalitems = (item \ "comments" \ "@totalitems").text
+        val ratingsCount = if (totalitems.isEmpty) 0 else totalitems.toInt
+        Item(itemId, itemType, itemName, yearpublished, image, thumbnail, ratingsCount)
+      }
+      items
+    } catch {
+      case e: Exception => throw new RuntimeException(xml, e)
     }
-    items
   }
 
   def parseItemRatingXml(itemId: Int, xml: String) = {
@@ -45,4 +55,9 @@ object Parser {
       ItemRating(userName, itemId, rating)
     }
   }
+
+  def removeNonPrintableCharacters(string: String) = string.replaceAll("\\p{C}", "")
+
+  def removeStrangeLeadingDots(string: String) = string.replaceFirst("^\\.+", "")
+
 }
