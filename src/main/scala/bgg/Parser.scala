@@ -15,7 +15,7 @@ object Parser {
     parseItemRatings
   }
 
-  def parseItemRatings {
+  def parseItemRatings { // took 2 hours
     sql"""CREATE TABLE IF NOT EXISTS bgg.itemrating (
   itemratingid INT NOT NULL AUTO_INCREMENT,
   username VARCHAR(100),

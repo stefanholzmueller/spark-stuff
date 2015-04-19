@@ -16,7 +16,7 @@ object Crawler {
     crawlRatings
   }
 
-  def crawlRatings = {
+  def crawlRatings = { // took 5 hours or so
     for ((page, batchOfIds) <- optimizePaging; ids <- batchOfIds) {
       download(ids, page, false)
     }
@@ -41,7 +41,7 @@ object Crawler {
     mapOfPagesToBatchesOfIds.toIndexedSeq.sortBy { case (page, itemIds) => page }.reverse
   }
 
-  def crawlItems = {
+  def crawlItems = { // took 3 hours
     for (batch <- 0 until ID_BATCHES) {
       val start = batch * ID_BATCH_SIZE + ID_START
       val thingIds = start until start + ID_BATCH_SIZE
@@ -49,7 +49,7 @@ object Crawler {
     }
   }
 
-  def download(ids: Seq[Int], page: Int, includeStats: Boolean): Unit = {
+  def download(ids: Seq[Int], page: Int, includeStats: Boolean) = {
     Thread.sleep(500)
 
     val map: Map[String, String] = Map(
