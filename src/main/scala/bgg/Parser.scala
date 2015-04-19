@@ -52,9 +52,7 @@ COLLATE=utf8_general_ci;
           val rating = (commentNode \ "@rating").text.toDouble
           val comment = (commentNode \ "@value").text
 
-          runningUserId = runningUserId + 1
-          val userId = userNameToUserId.getOrElse(userName, runningUserId)
-          userNameToUserId.put(userName, runningUserId)
+          val userId = userNameToUserId.getOrElseUpdate(userName, {runningUserId = runningUserId + 1; runningUserId})
 
           sql"""INSERT INTO itemrating (userName, userId, itemId, rating, comment)
                 VALUES ($userName, $userId, $itemId, $rating, $comment)""".update.apply
