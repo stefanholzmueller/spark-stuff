@@ -15,11 +15,11 @@ object Parser {
     parseItemRatings
   }
 
-  def parseItemRatings { // took 2 hours
+  def parseItemRatings { // took 1 hour
     sql"""CREATE TABLE IF NOT EXISTS bgg.itemrating (
   itemratingid INT NOT NULL AUTO_INCREMENT,
   username VARCHAR(100),
-  userId INT,
+  userid INT,
   itemid INT,
   rating FLOAT,
   comment TEXT,
@@ -41,9 +41,8 @@ COLLATE=utf8_general_ci;
       println(s"id=$id  runningUserId=$runningUserId")
       val xml = row.string("body")
       val xmlElem = scala.xml.XML.loadString(fixXml(xml))
-      val items = (xmlElem \ "item").filterNot { item =>
-        val itemType = (item \ "@type").text
-        itemType == "thing" /* item 50968 */ || itemType == "videogamehardware" /* item 65196 */
+      val items = (xmlElem \ "item").filter { item =>
+        (item \ "@type").text == "boardgame"
       }
       items.foreach { item =>
         val itemId = (item \ "@id").text.toInt
