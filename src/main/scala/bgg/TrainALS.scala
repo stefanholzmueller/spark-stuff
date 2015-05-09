@@ -3,7 +3,6 @@ package bgg
 import org.apache.spark.SparkConf
 import org.apache.spark.SparkContext
 import org.apache.spark.SparkContext._
-import org.apache.spark.mllib.recommendation.ALS
 import org.apache.spark.mllib.recommendation.Rating
 import org.apache.spark.sql.SQLContext
 import org.apache.spark.sql.DataFrame
@@ -15,6 +14,12 @@ import org.apache.spark.mllib.linalg.distributed.RowMatrix
 import org.apache.spark.mllib.linalg.DenseVector
 import org.apache.spark.mllib.linalg.Matrices
 import org.apache.spark.mllib.linalg.Vectors
+import org.apache.spark.ml.Pipeline
+import org.apache.spark.ml.recommendation.ALS
+import org.apache.spark.ml.tuning.CrossValidator
+import org.apache.spark.ml.tuning.ParamGridBuilder
+import org.apache.spark.ml.Evaluator
+import org.apache.spark.ml.param.ParamMap
 
 object TrainALS {
 
@@ -33,23 +38,44 @@ object TrainALS {
     val stholzm = sqlContext.sql("SELECT userId FROM itemrating WHERE username='stholzm'").collect()(0).getInt(0)
     val pandemic = 30549
 
-    val ratings = jdbcDF.map { row => Rating(row.getInt(2), row.getInt(3), row.getDouble(4)) }.cache()
-    val model = ALS.train(ratings, 100, 60, 0.01) // hit gc overhead limit => --driver-memory 6g
+    val ratings: RDD[org.apache.spark.mllib.recommendation.Rating] = jdbcDF.map { row => Rating(row.getInt(2), row.getInt(3), row.getDouble(4)) }.cache()
+    val als = new ALS().setMaxIter(10).setRank(10).setRegParam(0.01).setItemCol("product")
 
-    val prediction = model.predict(stholzm, pandemic)
-    val recommendations = model.recommendProducts(stholzm, 100)
+    val pipeline = new Pipeline().setStages(Array(als))
 
-    println(prediction)
-    println(recommendations.toList)
+    import sqlContext.implicits._
+    val model = pipeline.fit(ratings.toDF)
 
-    val itemDF = sqlContext.load("jdbc", Map("url" -> JDBC_URL, "dbtable" -> "item"))
-    val recRdd = sc.parallelize(recommendations, 1)
-    val left = recRdd.map { case Rating(user, product, rating) => (product, rating) }
-    val right = itemDF.filter("ratingscount > 10").map { df => (df.getInt(0), df.getString(2)) }
-    val newGames = left.join(right)
-    newGames.foreach(println)
+    val crossval = new CrossValidator().setEstimator(pipeline).setEvaluator(evaluator)
+    val paramGrid = new ParamGridBuilder()
+      .addGrid(als.regParam, Array(1, 0.1, 0.01))
+      .build()
+    crossval.setEstimatorParamMaps(paramGrid)
+    crossval.setNumFolds(2) // Use 3+ in practice
+    val cvModel = crossval.fit(ratings.toDF)
 
-    save(model)
+    val test = sc.parallelize(List(Rating(stholzm, pandemic, 0)))
+    val prediction1 = model.getModel(als).transform(test.toDF()).collect()
+    val prediction2 = cvModel.bestModel.transform(test.toDF()).collect()
+
+    println(cvModel.fittingParamMap)
+    prediction1.foreach(println)
+    prediction2.foreach(println)
+
+    //    val prediction = model.predict(stholzm, pandemic)
+    //    val recommendations = model.recommendProducts(stholzm, 100)
+    //
+    //    println(prediction)
+    //    println(recommendations.toList)
+    //
+    //    val itemDF = sqlContext.load("jdbc", Map("url" -> JDBC_URL, "dbtable" -> "item"))
+    //    val recRdd = sc.parallelize(recommendations, 1)
+    //    val left = recRdd.map { case Rating(user, product, rating) => (product, rating) }
+    //    val right = itemDF.filter("ratingscount > 10").map { df => (df.getInt(0), df.getString(2)) }
+    //    val newGames = left.join(right)
+    //    newGames.foreach(println)
+    //
+    //    save(model)
   }
 
   def save(model: MatrixFactorizationModel) {
@@ -61,6 +87,10 @@ object TrainALS {
     val userFeatures: RDD[(Int, Array[Double])] = sc.objectFile("C:/Users/bear/tmp/userFeatures.obj")
     val productFeatures: RDD[(Int, Array[Double])] = sc.objectFile("C:/Users/bear/tmp/productFeatures.obj")
     new MatrixFactorizationModel(100, userFeatures, productFeatures)
+  }
+
+  def evaluator: org.apache.spark.ml.Evaluator = new Evaluator {
+    def evaluate(dataset: DataFrame, paramMap: ParamMap): Double = 0.0
   }
 
 }
