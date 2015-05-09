@@ -3,7 +3,6 @@ package bgg
 import org.apache.spark.SparkConf
 import org.apache.spark.SparkContext
 import org.apache.spark.SparkContext._
-import org.apache.spark.mllib.recommendation.Rating
 import org.apache.spark.sql.SQLContext
 import org.apache.spark.sql.DataFrame
 import org.apache.spark.sql.Column
@@ -20,6 +19,8 @@ import org.apache.spark.ml.tuning.CrossValidator
 import org.apache.spark.ml.tuning.ParamGridBuilder
 import org.apache.spark.ml.Evaluator
 import org.apache.spark.ml.param.ParamMap
+import org.apache.spark.ml.recommendation.ALS.Rating
+import org.apache.spark.ml.param.DoubleParam
 
 object TrainALS {
 
@@ -38,8 +39,8 @@ object TrainALS {
     val stholzm = sqlContext.sql("SELECT userId FROM itemrating WHERE username='stholzm'").collect()(0).getInt(0)
     val pandemic = 30549
 
-    val ratings: RDD[org.apache.spark.mllib.recommendation.Rating] = jdbcDF.map { row => Rating(row.getInt(2), row.getInt(3), row.getDouble(4)) }.cache()
-    val als = new ALS().setMaxIter(10).setRank(10).setRegParam(0.01).setItemCol("product")
+    val ratings: RDD[Rating[Int]] = jdbcDF.map { row => Rating(row.getInt(2), row.getInt(3), row.getDouble(4).toFloat) }.cache()
+    val als = new ALS().setMaxIter(3).setRank(3)
 
     val pipeline = new Pipeline().setStages(Array(als))
 
@@ -58,9 +59,9 @@ object TrainALS {
     val prediction1 = model.getModel(als).transform(test.toDF()).collect()
     val prediction2 = cvModel.bestModel.transform(test.toDF()).collect()
 
-    println(cvModel.fittingParamMap)
-    prediction1.foreach(println)
-    prediction2.foreach(println)
+    println(cvModel.bestModel.fittingParamMap.get(als.regParam))
+    prediction1.foreach(println) // [106220,30549,0.0,7.794441]
+    prediction2.foreach(println) // [106220,30549,0.0,6.2156687]
 
     //    val prediction = model.predict(stholzm, pandemic)
     //    val recommendations = model.recommendProducts(stholzm, 100)
@@ -90,7 +91,18 @@ object TrainALS {
   }
 
   def evaluator: org.apache.spark.ml.Evaluator = new Evaluator {
-    def evaluate(dataset: DataFrame, paramMap: ParamMap): Double = 0.0
+    // dataset.toString === [user: int, item: int, rating: float, prediction: float]
+    // paramMap does not contain the actual regParam for this iteration
+    def evaluate(dataset: DataFrame, paramMap: ParamMap): Double = { // higher is better (?)
+      -dataset.map { row =>
+        {
+          val rating = row.getFloat(2).toDouble
+          val prediction = row.getFloat(3).toDouble
+          val dist = rating - prediction
+          dist * dist
+        }
+      }.reduce(_+_)
+    }
   }
 
 }
