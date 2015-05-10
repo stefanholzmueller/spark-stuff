@@ -19,8 +19,7 @@ import org.apache.spark.ml.tuning.CrossValidator
 import org.apache.spark.ml.tuning.ParamGridBuilder
 import org.apache.spark.ml.Evaluator
 import org.apache.spark.ml.param.ParamMap
-import org.apache.spark.ml.recommendation.ALS.Rating
-import org.apache.spark.ml.param.DoubleParam
+import org.apache.spark.mllib.recommendation.Rating
 
 object TrainALS {
 
@@ -39,8 +38,8 @@ object TrainALS {
     val stholzm = sqlContext.sql("SELECT userId FROM itemrating WHERE username='stholzm'").collect()(0).getInt(0)
     val pandemic = 30549
 
-    val ratings: RDD[Rating[Int]] = jdbcDF.map { row => Rating(row.getInt(2), row.getInt(3), row.getDouble(4).toFloat) }.cache()
-    val als = new ALS().setMaxIter(3).setRank(3)
+    val ratings: RDD[Rating] = jdbcDF.map { row => Rating(row.getInt(2), row.getInt(3), row.getDouble(4)) }.cache()
+    val als = new ALS().setMaxIter(20).setRank(50).setItemCol("product")
 
     val pipeline = new Pipeline().setStages(Array(als))
 
@@ -49,10 +48,10 @@ object TrainALS {
 
     val crossval = new CrossValidator().setEstimator(pipeline).setEvaluator(evaluator)
     val paramGrid = new ParamGridBuilder()
-      .addGrid(als.regParam, Array(1, 0.1, 0.01))
+      .addGrid(als.regParam, Array(0.000001, 0.00000001, 0.000000001))
       .build()
     crossval.setEstimatorParamMaps(paramGrid)
-    crossval.setNumFolds(2) // Use 3+ in practice
+    crossval.setNumFolds(3)
     val cvModel = crossval.fit(ratings.toDF)
 
     val test = sc.parallelize(List(Rating(stholzm, pandemic, 0)))
@@ -96,8 +95,8 @@ object TrainALS {
     def evaluate(dataset: DataFrame, paramMap: ParamMap): Double = { // higher is better (?)
       -dataset.map { row =>
         {
-          val rating = row.getFloat(2).toDouble
-          val prediction = row.getFloat(3).toDouble
+          val rating = row.getDouble(2)
+          val prediction = row.getDouble(3)
           val dist = rating - prediction
           dist * dist
         }
