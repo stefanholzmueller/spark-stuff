@@ -21,7 +21,7 @@ class XmlParsingTest {
 //    assertEquals(List(ItemRating("Peter McCarthy", 1234567, 9.99)), ratings.take(2))
   }
 
-  def readFile(fileName: String): String = {
+  private def readFile(fileName: String): String = {
     val resUrl = classOf[XmlParsingTest].getResource(fileName)
     val resPath = java.nio.file.Paths.get(resUrl.toURI);
     new String(java.nio.file.Files.readAllBytes(resPath), "UTF8");
